@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="417dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:background="#9993710A"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintVertical_bias="1.0">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonIrALogin"
+        android:layout_width="329dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="582dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="21dp"
+        android:background="#4B422A"
+        android:text="Tiene cuenta? Login"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/Button_registro"
+        android:layout_width="230dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="24dp"
+        android:background="#4B422A"
+        android:text="Registrarse"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.876" />
+
+    <LinearLayout
+        android:layout_width="425dp"
+        android:layout_height="598dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="7dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/Button_registro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:text="Email" />
+
+        <EditText
+            android:id="@+id/Nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="28dp"
+            android:ems="10"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:text="Nombre" />
+
+        <EditText
+            android:id="@+id/Apellido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="30dp"
+            android:ems="10"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:text="Apellido" />
+
+        <EditText
+            android:id="@+id/Usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="35dp"
+            android:ems="10"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:text="Usuario" />
+
+        <EditText
+            android:id="@+id/Contraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="47dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:text="Contraseña" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
