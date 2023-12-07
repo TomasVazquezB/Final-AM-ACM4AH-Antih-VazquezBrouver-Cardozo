@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.aplicacionbasica.ui.login.LoginActivity;
+
 public class Register extends AppCompatActivity {
 
     private EditText editTextEmail, editTextNombre, editTextApellido, editTextUsuario, editTextContraseña;
@@ -36,7 +38,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View buttonIrLogin) {
                 // Iniciar la actividad Login al hacer clic en el botón
-                Intent intent = new Intent(Register.this, Login.class);
+                Intent intent = new Intent(Register.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +70,7 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Datos guardados localmente", Toast.LENGTH_SHORT).show();
 
                     // Iniciar la actividad de inicio de sesión al hacer clic en el botón de registro
-                    Intent intent = new Intent(Register.this, Login.class);
+                    Intent intent = new Intent(Register.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }

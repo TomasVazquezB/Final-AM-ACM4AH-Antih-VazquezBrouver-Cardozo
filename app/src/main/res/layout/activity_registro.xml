@@ -33,7 +33,7 @@
         android:layout_marginEnd="166dp"
         android:layout_marginBottom="21dp"
         android:background="#4B422A"
-        android:text="Tiene cuenta? Login"
+        android:text="@string/tiene_cuenta_login"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/linearlayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="166dp"
         android:layout_marginBottom="24dp"
         android:background="#4B422A"
-        android:text="Registrarse"
+        android:text="@string/registrarse"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/linearlayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,9 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:text="Email" />
+            android:hint="@string/emaila"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/Nombre"
@@ -94,7 +96,9 @@
             android:ems="10"
             android:inputType="text"
             android:minHeight="48dp"
-            android:text="Nombre" />
+            android:hint="@string/nombre"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/Apellido"
@@ -107,7 +111,9 @@
             android:ems="10"
             android:inputType="text"
             android:minHeight="48dp"
-            android:text="Apellido" />
+            android:hint="@string/apellido"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/Usuario"
@@ -120,7 +126,9 @@
             android:ems="10"
             android:inputType="text"
             android:minHeight="48dp"
-            android:text="Usuario" />
+            android:hint="@string/usuario"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/Contraseña"
@@ -133,7 +141,9 @@
             android:ems="10"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:text="Contraseña" />
+            android:hint="@string/contrasenia"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
 
     </LinearLayout>
 

@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.aplicacionbasica.ui.login.LoginActivity;
+
 public class ReiniciarContra extends AppCompatActivity {
 
     private EditText editTextNuevaContraseña;
@@ -42,7 +44,7 @@ public class ReiniciarContra extends AppCompatActivity {
                     Toast.makeText(ReiniciarContra.this, "Contraseña restablecida con éxito", Toast.LENGTH_SHORT).show();
 
                     // Redirigir a la pantalla de inicio de sesión (Login)
-                    startActivity(new Intent(ReiniciarContra.this, Login.class));
+                    startActivity(new Intent(ReiniciarContra.this, LoginActivity.class));
                     finish();  // Cierra la actividad actual para evitar volver atrás con el botón de retroceso
                 } else {
                     // Mostrar mensaje de error si la contraseña está vacía
@@ -54,6 +56,6 @@ public class ReiniciarContra extends AppCompatActivity {
 
     // Método para crear una nueva intención
     public static Intent newIntent(Context context) {
-        return new Intent(context, Login.class);
+        return new Intent(context, LoginActivity.class);
     }
 }
