@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="ExtraText">
+    tools:ignore="ExtraText,MissingClass">
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -19,33 +19,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintVertical_bias="1.0">
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonIrALogin"
-        android:layout_width="329dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="582dp"
-        android:layout_marginEnd="166dp"
-        android:layout_marginBottom="21dp"
-        android:background="#4B422A"
-        android:text="@string/tiene_cuenta_login"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/linearlayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
         android:id="@+id/Button_registro"
-        android:layout_width="230dp"
-        android:layout_height="52dp"
+        android:layout_width="221dp"
+        android:layout_height="48dp"
         android:layout_marginStart="157dp"
         android:layout_marginEnd="166dp"
         android:layout_marginBottom="24dp"
@@ -68,7 +49,8 @@
         app:layout_constraintBottom_toTopOf="@+id/Button_registro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.474">
 
         <EditText
             android:id="@+id/Email"
@@ -78,12 +60,12 @@
             android:layout_marginTop="96dp"
             android:layout_marginEnd="101dp"
             android:layout_marginBottom="20dp"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/emaila"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:hint="@string/emaila"
-            tools:ignore="LabelFor"
-            android:autofillHints="" />
+            tools:ignore="LabelFor" />
 
         <EditText
             android:id="@+id/Nombre"
@@ -93,12 +75,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="101dp"
             android:layout_marginBottom="28dp"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/nombre"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/nombre"
-            tools:ignore="LabelFor"
-            android:autofillHints="" />
+            tools:ignore="LabelFor" />
 
         <EditText
             android:id="@+id/Apellido"
@@ -108,12 +90,12 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="101dp"
             android:layout_marginBottom="30dp"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/apellido"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/apellido"
-            tools:ignore="LabelFor"
-            android:autofillHints="" />
+            tools:ignore="LabelFor" />
 
         <EditText
             android:id="@+id/Usuario"
@@ -123,12 +105,12 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="101dp"
             android:layout_marginBottom="35dp"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/usuario"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/usuario"
-            tools:ignore="LabelFor"
-            android:autofillHints="" />
+            tools:ignore="LabelFor" />
 
         <EditText
             android:id="@+id/Contraseña"
@@ -138,13 +120,31 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="101dp"
             android:layout_marginBottom="47dp"
+            android:autofillHints=""
             android:ems="10"
+            android:hint="@string/contrasenia"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:hint="@string/contrasenia"
-            tools:ignore="LabelFor"
-            android:autofillHints="" />
+            tools:ignore="LabelFor" />
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonIrALogin"
+        android:layout_width="329dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="582dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="21dp"
+        android:background="#4B422A"
+        android:text="@string/tiene_cuenta_login"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" /> />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

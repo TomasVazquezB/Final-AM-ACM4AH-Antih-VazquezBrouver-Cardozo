@@ -1,10 +1,9 @@
 package com.example.aplicacionbasica.ui.login;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.util.Patterns;
-
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.example.aplicacionbasica.data.LoginRepository;
 import com.example.aplicacionbasica.data.Result;
 import com.example.aplicacionbasica.data.model.LoggedInUser;
@@ -29,7 +28,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String username, String password) {
-        // can be launched in a separate asynchronous job
+
         Result<LoggedInUser> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
@@ -50,7 +49,6 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
@@ -62,7 +60,6 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
     }

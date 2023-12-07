@@ -1,10 +1,7 @@
 package com.example.aplicacionbasica.ui.login;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-/**
- * Authentication result : success (user details) or error message.
- */
 class LoginResult {
     @Nullable
     private LoggedInUserView success;
