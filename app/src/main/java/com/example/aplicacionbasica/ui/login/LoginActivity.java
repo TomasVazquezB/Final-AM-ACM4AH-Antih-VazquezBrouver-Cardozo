@@ -1,6 +1,5 @@
 package com.example.aplicacionbasica.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,40 +10,42 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.example.aplicacionbasica.MainActivity;
 import com.example.aplicacionbasica.R;
 import com.example.aplicacionbasica.ReiniciarContra;
 import com.example.aplicacionbasica.databinding.ActivityLoginBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
 
+    private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
-
-    public LoginActivity(ActivityLoginBinding binding) {
-        this.binding = binding;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+//        mAuth = FirebaseAuth.getInstance();
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
-        final ProgressBar loadingProgressBar = binding.loading;
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -68,14 +69,14 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult == null) {
                     return;
                 }
-                loadingProgressBar.setVisibility(View.GONE);
+
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                 }
-                setResult(Activity.RESULT_OK);
+                setResult(RESULT_OK);
 
                 finish();
             }
@@ -84,17 +85,15 @@ public class LoginActivity extends AppCompatActivity {
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),passwordEditText.getText().toString());
+                loginViewModel.loginDataChanged(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
@@ -113,8 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),passwordEditText.getText().toString());
+                loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
 
@@ -122,31 +120,30 @@ public class LoginActivity extends AppCompatActivity {
         buttonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View buttonIniciarSesion) {
-
                 String emailIngresado = usernameEditText.getText().toString().trim();
                 String contraseñaIngresada = passwordEditText.getText().toString().trim();
 
+                // Recupera la contraseña almacenada
                 sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-                String emailAlmacenado = sharedPreferences.getString("email", "");
                 String contraseñaAlmacenada = sharedPreferences.getString("contraseña", "");
 
-                if (emailIngresado.equals(emailAlmacenado) && contraseñaIngresada.equals(contraseñaAlmacenada)) {
-
+                // Verifica si la contraseña coincide
+                if (contraseñaIngresada.equals(contraseñaAlmacenada)) {
+                    // Inicia sesión correctamente
                     Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
+                    // ...
                 } else {
-
+                    // Contraseña incorrecta
                     Toast.makeText(LoginActivity.this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+
         Button buttonOlvidoContraseña = findViewById(R.id.boton_recuperar);
         buttonOlvidoContraseña.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View buttonOlvidoContraseña) {
-
                 startActivity(new Intent(LoginActivity.this, ReiniciarContra.class));
             }
         });
