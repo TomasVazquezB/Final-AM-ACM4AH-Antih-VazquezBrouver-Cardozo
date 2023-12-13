@@ -43,12 +43,12 @@
         android:layout_marginStart="173dp"
         android:layout_marginTop="103dp"
         android:layout_marginEnd="180dp"
-        android:layout_marginBottom="382dp"
         android:text="@string/olvidaste_la_contrase_a"
         app:layout_constraintBottom_toTopOf="@+id/recuperar_contraseña"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <EditText
         android:id="@+id/contraseña_recuperada"

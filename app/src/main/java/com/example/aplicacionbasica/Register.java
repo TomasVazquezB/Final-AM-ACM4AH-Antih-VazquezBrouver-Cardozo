@@ -1,97 +1,132 @@
 package com.example.aplicacionbasica;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import com.example.aplicacionbasica.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    private EditText editTextEmail, editTextNombre, editTextApellido, editTextUsuario, editTextContraseña;
-    private SharedPreferences sharedPreferences;
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
+    EditText name, email, password;
+    FirebaseFirestore mFirestore;
+    FirebaseAuth mAuth;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+        this.setTitle("Registro");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editTextEmail = findViewById(R.id.Email);
-        editTextNombre = findViewById(R.id.Nombre);
-        editTextApellido = findViewById(R.id.Apellido);
-        editTextUsuario = findViewById(R.id.Usuario);
-        editTextContraseña = findViewById(R.id.Contraseña);
+        mFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        name = findViewById(R.id.Nombre);
+        email = findViewById(R.id.Email);
+        password = findViewById(R.id.Contraseña);
+        Button btn_register = findViewById(R.id.Button_registro);
+
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View btn_register) {
+                String nameUser = name.getText().toString().trim();
+                String emailUser = email.getText().toString().trim();
+                String passUser = password.getText().toString().trim();
+
+                if (nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty()){
+                    Toast.makeText(Register.this, "Complete los datos", Toast.LENGTH_SHORT).show();
+                }else{
+                    registerUser(nameUser, emailUser, passUser);
+
+                }
+            }
+        });
 
         Button buttonIrALogin = findViewById(R.id.buttonIrALogin);
         buttonIrALogin.setOnClickListener(buttonIrLogin -> {
             Intent intent = new Intent(Register.this, LoginActivity.class);
             startActivity(intent);
         });
-
-        Button buttonRegistrarse = findViewById(R.id.Button_registro);
-        buttonRegistrarse.setOnClickListener(buttonRegistrarse1 -> {
-            String email = editTextEmail.getText().toString().trim();
-            String nombre = editTextNombre.getText().toString().trim();
-            String apellido = editTextApellido.getText().toString().trim();
-            String usuario = editTextUsuario.getText().toString().trim();
-            String contraseña = editTextContraseña.getText().toString().trim();
-
-            if (email.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || usuario.isEmpty() || contraseña.isEmpty()) {
-                Toast.makeText(Register.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
-            } else {
-                mAuth.createUserWithEmailAndPassword(email, contraseña)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    saveUserDataToFirestore(email, nombre, apellido, usuario, contraseña);
-                                    Toast.makeText(Register.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Register.this, LoginActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(Register.this, "Error al registrarse: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        });
     }
 
-    private void saveUserDataToFirestore(String email, String nombre, String apellido, String usuario, String contraseña) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("email", email);
-        user.put("nombre", nombre);
-        user.put("apellido", apellido);
-        user.put("usuario", usuario);
-        user.put("contraseña", contraseña);
-
-        db.collection("users")
-                .document(mAuth.getCurrentUser().getUid())
-                .set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+    private void registerUser(String nameUser, String emailUser, String passUser) {
+        mFirestore.collection("user").whereEqualTo("name", nameUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            if (task.getResult().isEmpty()) {
+                                mFirestore.collection("user").whereEqualTo("email", emailUser)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    if (task.getResult().isEmpty()) {
+                                                        mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    String id = mAuth.getCurrentUser().getUid();
+                                                                    Map<String, Object> map = new HashMap<>();
+                                                                    map.put("id", id);
+                                                                    map.put("name", nameUser);
+                                                                    map.put("email", emailUser);
+                                                                    map.put("password", passUser);
+                                                                    mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void unused) {
+                                                                            Toast.makeText(Register.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Toast.makeText(Register.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+                                                        });
+                                                    } else {
+                                                        Toast.makeText(Register.this, "El correo electrónico ya existe", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } else {
+                                                    Toast.makeText(Register.this, "Error al verificar el correo electrónico", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            } else {
+                                Toast.makeText(Register.this, "El nombre de usuario ya existe", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(Register.this, "Error al guardar datos en Firestore", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "Error al verificar el nombre de usuario", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 }
